@@ -1,0 +1,103 @@
+{% include 'account/base.html' %}
+{% load static%}
+{% load crispy_forms_tags %}
+
+{% block title %}
+<title>Home</title>
+{% endblock %}
+
+{% block content %}
+<header class="p-3 border-bottom bg-primary text-light">
+   <div class="container">
+     <div class="d-flex flex-wrap align-items-center justify-content-between">
+       <a href="{% url 'home-page' %}" class="d-flex align-items-center mb-2 mb-lg-0 text-decoration-none link-light">
+        {% load static %} <img src="{% static 'images/logo.png' %}" alt="Logo" width="55" height="55"/>elta Entertainment Company
+       </a>
+
+        {% if user.is_authenticated %}
+        <div class="dropdown text-end">
+            <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png" alt="default" width="32" height="32" class="rounded-circle"> {{user.username}}
+            </a>
+            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+              <li><a class="dropdown-item" href="{% url 'logout' %}">Sign out</a></li>
+            </ul>
+        </div>
+        {% else %}
+        <div class="text-end">
+            <a href="{% url 'login' %}" type="button" class="btn btn-light text-dark me-2">Login</a>
+            <a href="{% url 'registration-page' %}" type="button" class="btn btn-warning">Sign-up</a>
+        </div>
+        {% endif %}
+     </div>
+   </div>
+</header>
+{% if user.is_authenticated %}
+<nav class=" py-3 bg-light border-bottom">
+  <div class="container d-flex flex-wrap">
+    <ul class="nav me-auto">
+      <li class="nav-item"><a href="{% url 'home-page' %}" class="nav-link link-dark px-2">Home</a></li>
+      <li class="nav-item"><a href="{% url 'catalogue-page' %}" class="nav-link link-dark px-2">Catalogue</a></li>
+      <li class="nav-item"><a href="{% url 'history-page' %}" class="nav-link link-dark px-2">Transaction History</a></li>
+      <li class="nav-item"><a href="{% url 'refund-page' %}" class="nav-link link-dark px-2">Refund Request</a></li>
+      <li class="nav-item"><a href="{% url 'review-page' %}" class="nav-link link-dark px-2">Review</a></li>   
+      <li class="nav-item"><a href="{% url 'forum-page' %}" class="nav-link link-dark px-2">Forum</a></li>
+    </ul>
+  </div>
+</nav>
+{% endif %}
+
+
+    <main class="form-request text-center container mt-5">
+    <form method="POST">
+      {% csrf_token %}
+      <!-- <div class="py-5 text-center">
+        <h2>Request form</h2>
+        <p class="lead"></p>
+      </div>
+      <div class="row g-">
+        <section class="row justify-content-center">
+        <section class="col-12 col-sm-6 col-md-4">
+      <div class="col-sm-12">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" placeholder="" value="" required>
+      </div>
+
+      <div class="col-sm-12">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" placeholder="" value="{{user.username}}" required>
+      </div>
+
+      <div class="col-sm-12">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" placeholder="" value="" required></textarea>
+      </div>
+
+      <div class="col-md-12">
+        <label for="category" class="form-label">Category</label>
+        <select class="form-select" id="Category" required>
+        <option value="">Choose...</option>
+        <option>Music</option>
+        <option>Movie</option>
+        <option>Game</option>
+        </select>
+      </div>
+
+      <div class="col-sm-12">
+        <div class="form-group">
+        <label for="photo">Picture</label>
+        <input type="file" class="form-control" id="photo" name="photo" accept=".jpg,.jpeg,.png">
+      </div> -->
+
+      {{ form|crispy }}
+      <button class="w-100 btn btn-primary btn-lg" type="submit" name="submit">Send</button>
+    </form>
+    </main>
+
+<footer class="px-5 d-flex flex-wrap justify-content-between align-items-center py-3 my-2 border-top">
+  <p class="col-md-4 mb-0 text-muted">&copy; 2021 DEC, Inc</p>
+  <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-autolink-dark text-decoration-none">
+    <p class="h5 me-3 text-dark fw-bold">Delta Entertainment Company</p>
+  </a>
+</footer>
+{% endblock %}

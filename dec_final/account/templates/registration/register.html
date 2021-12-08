@@ -1,0 +1,21 @@
+{% extends 'account/base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+<title>DEC - Register Page</title>
+{% endblock %}
+
+{% block content %}
+<main class="form-signin text-center container mt-5">
+    <form method="POST">
+      {% csrf_token %}
+      <h1 class="h3 mb-3 fw-normal">Delta Entertainment Company</h1>
+      <h2 class="h5 mb-3 fw-normal">Register Your Account</h2>
+      <div class="mx-5 mt-5 mb-5">
+        {{ form|crispy }}
+      </div>
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Register Now</button>
+    </form>
+  </main>
+{% endblock %}
